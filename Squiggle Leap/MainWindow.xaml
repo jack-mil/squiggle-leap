@@ -1,0 +1,78 @@
+﻿<Window x:Class="SquiggleLeap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SquiggleLeap"
+        mc:Ignorable="d"
+        Title="Squiggle Leap" Height="680" Width="440" ResizeMode="CanMinimize" ContentRendered="Window_ContentRendered" KeyDown="Window_KeyDown" Closing="Window_Closing">
+    <Window.Background>
+        <ImageBrush ImageSource="Assets/Background.png" TileMode="Tile" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid x:Name="Menu" Panel.ZIndex="2">
+            <TextBlock TextWrapping="Wrap" Text="Squiggle Leap!" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="48"  TextAlignment="Center" Height="61" Width="370" Padding="0,2,0,0" Background="{DynamicResource BGGradient}" Margin="0,50,0,0" Foreground="{DynamicResource GreenColor}" FontFamily="{DynamicResource 3Dfont}"/>
+            <Image Source="Assets/Controls.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="45" Margin="0,137,0,0"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Width="205" FontSize="20" TextAlignment="Center" Margin="0,185,0,0" Text="LEFT and RIGHT to move" Foreground="Black" Height="45" Padding="0,10,0,0" FontFamily="{DynamicResource DoodleFont}" Background="{DynamicResource BGGradient}"/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Press SPACE to start!" VerticalAlignment="Bottom" FontSize="24" Width="224" TextAlignment="Center" Height="86" Padding="0,27,0,0" Background="{DynamicResource BGGradient}" Margin="0,0,0,162" FontFamily="{DynamicResource DoodleFont}"/>
+            <Button x:Name="QUIT" Content="Quit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" HorizontalContentAlignment="Center" Margin="0,0,8,8" Style="{DynamicResource Button1}" Click="Quit_Clicked" FontFamily="{DynamicResource DoodleFont}" FontSize="14"/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="{DynamicResource DoodleFont}" Margin="0,295,0,0" Width="186" FontSize="22" Height="41" TextAlignment="Center" Background="{DynamicResource BGGradient}" Foreground="#FF2596E4" Padding="0,5,0,0"><Run Text="Highscore:  "/><Run x:Name="HighScoreText" Text="00"/></TextBlock>
+            <Label Content="Jackson Miller" HorizontalContentAlignment="Center" FontSize="6" Foreground="#FF616161" HorizontalAlignment="Left" Width="47" VerticalAlignment="Bottom" Height="21" Margin="30,0,0,0"/>
+
+        </Grid>
+
+        <Grid x:Name="GameWindow">
+            <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Hidden" Focusable="False" PreviewMouseWheel="Scroller_PreviewMouseWheel_Override">
+                <Canvas x:Name="GameCanvas" Height="10000000" VerticalAlignment="Bottom">
+
+                    <local:Player x:Name="Player" Height="60" Width="60" Source="Assets/Player.png" Panel.ZIndex="1" Canvas.Left="38" Canvas.Top="516"/>
+                    <local:Platform x:Name="startPlat" Enabled="True" Canvas.Left="24" Canvas.Top="614" Stretch="Fill"/>
+
+                    <!--#region Platform Collection-->
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <local:Platform Visibility="Collapsed"/>
+                    <!--#endregion-->
+
+                </Canvas>
+            </ScrollViewer>
+
+            <Border x:Name="ScoreBlock"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,5,0" CornerRadius="4" BorderThickness="1" Background="{DynamicResource BGGradient}" >
+                <TextBlock  TextWrapping="Wrap" Foreground="#FF7CA739" FontSize="24" Height="50" Width="128" FontFamily="{DynamicResource DoodleFont}" Padding="10,8,0,0" Background="{DynamicResource BGGradient}"><Run Text="Score:  "/><Run x:Name="ScoreText" Text="00"/></TextBlock>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="GameOverScreen" Visibility="Collapsed">
+            <TextBlock x:Name="newHighscore" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold" TextAlignment="Center" Padding="0,0,0,5" Margin="0,64,0,0" Text="NEW HIGH SCORE!" FontFamily="{DynamicResource 3Dfont}" FontSize="72" Background="{DynamicResource BGGradient}" Foreground="#FF245E85" Visibility="Collapsed" />
+
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="5" Padding="0,0,0,5" Margin="0,-60,0,0" >
+                <TextBlock.Background>
+                    <SolidColorBrush Color="Red" Opacity="0.55"/>
+                </TextBlock.Background>
+                <Run Text="Game Over!" FontFamily="{DynamicResource 3Dfont}" FontSize="48"/>
+                <LineBreak/>
+                <LineBreak/>
+                <Run FontFamily="{DynamicResource DoodleFont}" Text="Press SPACE to restart" FontSize="20"/>
+            </TextBlock>
+
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="{DynamicResource DoodleFont}" Margin="124,376,124,228" Width="186" FontSize="24" Height="47" TextAlignment="Center" Background="{DynamicResource BGGradient}" Foreground="#FF2596E4" Padding="0,7,0,0"><Run Text="Highscore:  "/><Run x:Name="endHighScoreText" Text="00"/></TextBlock>
+			<Button x:Name="BACK" Content="Quit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" HorizontalContentAlignment="Center" Margin="0,0,8,8" Style="{DynamicResource Button1}" Click="Quit_Clicked" FontFamily="{DynamicResource DoodleFont}" FontSize="14"/>			
+        </Grid>
+
+    </Grid>
+
+</Window>
